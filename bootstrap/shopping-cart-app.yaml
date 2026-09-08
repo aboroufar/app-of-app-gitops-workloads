@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/aboroufar/app-of-app-gitops-workloads.git
     targetRevision: main
     path: apps/shopping-cart/kustomize-wrapper
+    kustomize:
+      buildOptions: --enable-helm
   destination:
     name: aws-eks-prod
     namespace: shopping-prod
