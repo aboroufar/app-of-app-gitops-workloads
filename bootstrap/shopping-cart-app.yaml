@@ -10,7 +10,8 @@ spec:
     targetRevision: main
     path: apps/shopping-cart/kustomize-wrapper
     kustomize:
-      buildOptions: --enable-helm ## enable helm support which is disabled by default in ArgoCD's
+      #### enable helm support which is disabled by default in ArgoCD's
+      buildOptions: --enable-helm
   destination:
     name: aws-eks-prod
     namespace: shopping-prod
