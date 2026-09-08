@@ -3,4 +3,4 @@ kind: Deployment
 metadata:
   name: payment-api
 spec:
-  replicas: 3
+  replicas: 2

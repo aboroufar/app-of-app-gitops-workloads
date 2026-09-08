@@ -7,6 +7,6 @@ resources:
 namePrefix: prod-
 commonLabels:
   environment: prod
-
+### #### This block invokes Kustomize's Strategic Merge Patch mechanism. It instructs Kustomize to take the baseline resource definitions loaded from ../../base and overlay the changes defined in patches/replica-patch.yaml.
 patches:
   - path: patches/replica-patch.yaml

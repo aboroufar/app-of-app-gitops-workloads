@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Create all necessary directory structures
+# Ensure directory structure exists
 mkdir -p bootstrap
 mkdir -p apps/payment-api/base
 mkdir -p apps/payment-api/overlays/dev
@@ -10,7 +10,7 @@ mkdir -p apps/shopping-cart/templates
 mkdir -p apps/shopping-cart/kustomize-wrapper
 
 # ==============================================================================
-# 1. ROOT APP & APPLICATIONSET (Targeting app-of-app-gitops-workloads.git)
+# 1. BOOTSTRAP: Root App & ApplicationSet (Targeting name: aws-eks-prod)
 # ==============================================================================
 
 cat <<'EOF' > root-app.yaml
@@ -28,7 +28,7 @@ spec:
     targetRevision: main
     path: bootstrap
   destination:
-    server: https://kubernetes.default.svc
+    name: aws-eks-prod
     namespace: argocd
   syncPolicy:
     automated:
@@ -63,7 +63,7 @@ spec:
         targetRevision: main
         path: 'apps/payment-api/overlays/{{env}}'
       destination:
-        server: https://kubernetes.default.svc
+        name: aws-eks-prod
         namespace: '{{namespace}}'
       syncPolicy:
         automated:
@@ -94,7 +94,7 @@ spec:
     targetRevision: main
     path: apps/shopping-cart/kustomize-wrapper
   destination:
-    server: https://kubernetes.default.svc
+    name: aws-eks-prod
     namespace: shopping-prod
   syncPolicy:
     automated:
@@ -105,7 +105,7 @@ spec:
 EOF
 
 # ==============================================================================
-# 2. PAYMENT-API WORKLOAD (Kustomize, PreSync Hook, Sync Waves)
+# 2. PAYMENT-API WORKLOAD (Kustomize, PreSync Hook, Sync Waves, Public Images)
 # ==============================================================================
 
 cat <<'EOF' > apps/payment-api/base/db-migration-job.yaml
@@ -334,4 +334,4 @@ patches:
       name: shopping-cart
 EOF
 
-echo "Setup complete! All resources configured for https://github.com/aboroufar/app-of-app-gitops-workloads.git"
+echo "Script complete! All targets updated to 'name: aws-eks-prod'."

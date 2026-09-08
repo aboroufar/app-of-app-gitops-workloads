@@ -4,6 +4,9 @@ kind: Kustomization
 resources:
   - ../../base
 
+
+### This prefixes the metadata.name
 namePrefix: dev-
+### This injects the specified key-value pair (
 commonLabels:
   environment: dev

@@ -4,7 +4,7 @@ metadata:
   name: root-application
   namespace: argocd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io
+    - resources-finalizer.argocd.argoproj.io  ### it allow argocd to delete the application in a cascade way
 spec:
   project: default
   source:
@@ -12,12 +12,12 @@ spec:
     targetRevision: main
     path: bootstrap
   destination:
-    server: https://kubernetes.default.svc
+    name: aws-eks-prod
     namespace: argocd
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: true ### if the manifest is deleted from Git, the live Deployment remains intact on the cluster if false
+      selfHeal: true ## is enabled, if a user manually changes fields directly on the cluster using kubectl edit, ArgoCD detects drift and restores the configuration to match Git.
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      - ServerSideApply=true ### ServerSideApply=true: Bypasses Kubernetes client-side annotation size limits

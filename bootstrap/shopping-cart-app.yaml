@@ -10,7 +10,7 @@ spec:
     targetRevision: main
     path: apps/shopping-cart/kustomize-wrapper
   destination:
-    server: https://kubernetes.default.svc
+    name: aws-eks-prod
     namespace: shopping-prod
   syncPolicy:
     automated:

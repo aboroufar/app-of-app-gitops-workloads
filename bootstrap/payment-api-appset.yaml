@@ -21,7 +21,7 @@ spec:
         targetRevision: main
         path: 'apps/payment-api/overlays/{{env}}'
       destination:
-        server: https://kubernetes.default.svc
+        name: aws-eks-prod
         namespace: '{{namespace}}'
       syncPolicy:
         automated:
@@ -29,8 +29,8 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
-          - ApplyOutOfSyncOnly=true
-          - RespectIgnoreDifferences=true
+          - ApplyOutOfSyncOnly=true ## Applies only manifests whose hashes changed, preventing unnecessary cluster API load.
+          - RespectIgnoreDifferences=true # Tell the sync engine NOT to overwrite the ignored fields
         retry:
           limit: 5
           backoff:
