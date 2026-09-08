@@ -5,7 +5,7 @@ helmCharts:
   - name: ..
     releaseName: shopping-cart
     namespace: shopping-prod
-    valuesFile: ../values-prod.yaml
+    valuesFile: values-prod.yaml
 
 patches:
   - path: ingress-patch.yaml
