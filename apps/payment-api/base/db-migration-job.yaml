@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: payment-db-migration
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: public.ecr.aws/docker/library/busybox:latest
+          command:
+            - "sh"
+            - "-c"
+            - "echo 'Running database migrations...'; sleep 4; echo 'Migrations successful!'"

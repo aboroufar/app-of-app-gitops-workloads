@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: payment-api-workloads
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+            namespace: payment-dev
+          - env: prod
+            namespace: payment-prod
+  template:
+    metadata:
+      name: 'payment-api-{{env}}'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/aboroufar/app-of-app-gitops-workloads.git
+        targetRevision: main
+        path: 'apps/payment-api/overlays/{{env}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ApplyOutOfSyncOnly=true
+          - RespectIgnoreDifferences=true
+        retry:
+          limit: 5
+          backoff:
+            duration: 5s
+            factor: 2
+            maxDuration: 3m
