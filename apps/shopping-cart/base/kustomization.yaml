@@ -1,9 +1,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+
+helmGlobals:
+  chartHome: ../../charts
+
 helmCharts:
   - name: shopping-cart
-    chartHome: ../charts
     releaseName: shopping-cart
     namespace: shopping-prod
     valuesFile: values.yaml
