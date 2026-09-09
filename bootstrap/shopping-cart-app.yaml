@@ -11,7 +11,7 @@ spec:
     path: apps/shopping-cart/kustomize-wrapper
     kustomize:
       #### enable helm support which is disabled by default in ArgoCD's
-      buildOptions: --enable-helm
+      #buildOptions: --enable-helm
   destination:
     name: in-cluster
     namespace: shopping-prod
