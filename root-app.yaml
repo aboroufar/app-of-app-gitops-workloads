@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/aboroufar/app-of-app-gitops-workloads.git
-    targetRevision: main
+    targetRevision: local
     path: bootstrap
   destination:
     # Root manifests (Application / ApplicationSet) MUST be applied to ArgoCD's home cluster
