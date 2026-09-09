@@ -13,7 +13,7 @@ spec:
     path: bootstrap
   destination:
     # Root manifests (Application / ApplicationSet) MUST be applied to ArgoCD's home cluster
-    server: https://kubernetes.default.svc
+    server: in-cluster
     namespace: argocd
   syncPolicy:
     automated:
