@@ -21,7 +21,7 @@ spec:
         targetRevision: local
         path: 'apps/payment-api/overlays/{{env}}'
       destination:
-        name: aws-eks-prod
+        name: https://kubernetes.default.svc
         namespace: '{{namespace}}'
       syncPolicy:
         automated:
