@@ -18,7 +18,7 @@ spec:
       project: default
       source:
         repoURL: https://github.com/aboroufar/app-of-app-gitops-workloads.git
-        targetRevision: main
+        targetRevision: local
         path: 'apps/payment-api/overlays/{{env}}'
       destination:
         name: aws-eks-prod

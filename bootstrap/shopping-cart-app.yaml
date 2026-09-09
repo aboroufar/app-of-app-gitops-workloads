@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/aboroufar/app-of-app-gitops-workloads.git
-    targetRevision: main
+    targetRevision: local
     path: apps/shopping-cart/kustomize-wrapper
     kustomize:
       #### enable helm support which is disabled by default in ArgoCD's
