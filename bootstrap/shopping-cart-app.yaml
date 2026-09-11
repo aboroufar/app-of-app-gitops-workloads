@@ -12,6 +12,8 @@ spec:
     #kustomize:
       #### enable helm support which is disabled by default in ArgoCD's
       #buildOptions: --enable-helm
+  kustomize:
+      buildOptions: --enable-helm
   destination:
     name: in-cluster
     namespace: shopping-prod
