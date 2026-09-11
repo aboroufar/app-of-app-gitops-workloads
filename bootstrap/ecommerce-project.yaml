@@ -36,8 +36,6 @@ spec:
   # 4. Deny cluster-scoped resources (protects cluster security)
   clusterResourceWhitelist: []
   clusterResourceBlacklist:
-    - group: ""
-      kind: Namespace
     - group: "rbac.authorization.k8s.io"
       kind: ClusterRole
     - group: "rbac.authorization.k8s.io"
