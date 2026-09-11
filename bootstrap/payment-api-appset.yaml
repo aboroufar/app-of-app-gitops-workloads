@@ -15,7 +15,7 @@ spec:
     metadata:
       name: 'payment-api-{{env}}'
     spec:
-      project: default
+      project: ecommerce-workloads
       source:
         repoURL: https://github.com/aboroufar/app-of-app-gitops-workloads.git
         targetRevision: local

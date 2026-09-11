@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: ecommerce-workloads
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: "E-Commerce microservices project covering payment and shopping services"
+
+  # 1. Restrict which Git repositories apps in this project can pull from
+  sourceRepos:
+    - "https://github.com/aboroufar/app-of-app-gitops-workloads.git"
+
+  # 2. Restrict which clusters and namespaces apps can deploy to
+  destinations:
+    - name: in-cluster
+      namespace: payment-dev
+    - name: in-cluster
+      namespace: payment-prod
+    - name: in-cluster
+      namespace: shopping-prod
+    # Also permit default API server address for in-cluster resolution
+    - server: https://kubernetes.default.svc
+      namespace: payment-dev
+    - server: https://kubernetes.default.svc
+      namespace: payment-prod
+    - server: https://kubernetes.default.svc
+      namespace: shopping-prod
+
+  # 3. Allow standard namespaced resources to be created
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+  # 4. Deny cluster-scoped resources (protects cluster security)
+  clusterResourceWhitelist: []
+  clusterResourceBlacklist:
+    - group: ""
+      kind: Namespace
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRole
+    - group: "rbac.authorization.k8s.io"
+      kind: ClusterRoleBinding
+
+  # 5. Prevent apps from automatically or accidentally modifying critical resources
+  orphanedResources:
+    warn: true

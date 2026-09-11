@@ -4,7 +4,7 @@ metadata:
   name: shopping-cart-prod
   namespace: argocd
 spec:
-  project: default
+  project: ecommerce-workloads
   source:
     repoURL: https://github.com/aboroufar/app-of-app-gitops-workloads.git
     targetRevision: local
